@@ -199,16 +199,30 @@ $(document).ready(function() {
         $('#jsonContent').text(jsonStr);
         $('#jsonOutput').show();
         
-        // 创建下载按钮
+        // 创建下载和复制按钮
         const blob = new Blob([jsonStr], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
         const downloadBtn = $('#downloadJson');
+        const copyBtn = $('#copyJson');
+        
         if(downloadBtn.length === 0) {
-            $('.json-schema-container').append(`
-                <a id="downloadJson" class="btn btn-success mt-3" href="${url}" download="api_schema.json">
-                    下载JSON文件
-                </a>
+            $('.json-schema-container').prepend(`
+                <div class="json-buttons">
+                    <a id="downloadJson" class="btn btn-success" href="${url}" download="api_schema.json">
+                        下载JSON
+                    </a>
+                    <button id="copyJson" class="btn btn-info ml-2">
+                        复制JSON内容
+                    </button>
+                </div>
             `);
+            
+            // 添加复制功能
+            $('#copyJson').click(function() {
+                navigator.clipboard.writeText(jsonStr)
+                    .then(() => alert('JSON内容已复制到剪贴板'))
+                    .catch(err => alert('复制失败: ' + err));
+            });
         } else {
             downloadBtn.attr('href', url);
         }

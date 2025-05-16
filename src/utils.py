@@ -84,18 +84,19 @@ def modify_text(file, content):
 
 
 
-def function_call(url,args):
+def function_call(url,args,headers):
     # 通过name从 APIJsonSchema 中获取 API
-    headers = {
+    req_headers = {
         "Content-Type":"application/json"
     }
+    req_headers.update(headers)
     try:
-        response = requests.post(url=url, headers=headers, json=args).text
+        response = requests.post(url=url, headers=req_headers, json=args).text
         return response
     except Exception as e:
-        print(url,args)
+        print(url,args,headers)
         traceback.extract_stack()
-        return  print(f"调用方法报错: {type(e).__name__}: {e}")
+        return print(f"调用方法报错: {type(e).__name__}: {e}")
 
 
 

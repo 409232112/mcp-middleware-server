@@ -256,6 +256,7 @@ h1 {
 .btn-success {
     background-color: #28a745;
     color: white;
+    text-decoration: none;
 }
 
 .btn-success:hover {
@@ -279,7 +280,7 @@ h1 {
     font-family: 'Microsoft YaHei', sans-serif;
     font-size: 15px;
     white-space: pre-wrap;
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
     margin-top: 15px;
     margin-bottom: 25px;
@@ -288,6 +289,24 @@ h1 {
 
 .generate-btn {
     margin-bottom: 15px;
+}
+
+.json-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.ml-2 {
+    margin-left: 10px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
 }
 
 .json-output h3 {

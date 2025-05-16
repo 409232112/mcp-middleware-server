@@ -65,7 +65,16 @@ class MCPServer:
         @self.server.call_tool()
         async def call_tool(name: str, arguments: dict) -> types.TextContent:
             """处理工具调用请求"""
-            result = utils.function_call(self.tools.get_json_tools()[name]["api"], arguments)
+
+            if name not in self.tools.get_json_tools():
+                return [
+                    types.TextContent(
+                        type="text",
+                        text="no function named "+name
+                    )
+                ]
+
+            result = utils.function_call(self.tools.get_json_tools()[name]["api"], arguments,self.tools.get_json_tools()[name]["headers"])
 
             return [
                 types.TextContent(
