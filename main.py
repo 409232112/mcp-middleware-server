@@ -4,7 +4,6 @@ import json
 from collections.abc import AsyncIterator
 from typing import Any
 
-import anyio
 import click
 import uvicorn
 import mcp.types as types
@@ -15,6 +14,8 @@ from starlette.types import Receive, Scope, Send
 
 from mcp.server.lowlevel import Server
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+
+import utils
 from mcp_tools import Tools
 
 # 初始化日志记录器
@@ -62,33 +63,16 @@ class MCPServer:
         """注册工具函数"""
 
         @self.server.call_tool()
-        async def call_tool(
-                name: str, arguments: dict
-        ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+        async def call_tool(name: str, arguments: dict) -> types.TextContent:
             """处理工具调用请求"""
-            ctx = self.server.request_context
-            interval = arguments.get("interval", 1.0)
-            count = arguments.get("count", 5)
-            caller = arguments.get("caller", "unknown")
-
-            # 发送指定数量的通知
-            for i in range(count):
-                await ctx.session.send_log_message(
-                    level="info",
-                    data=f"Notification {i + 1}/{count} from caller: {caller}",
-                    logger="notification_stream",
-                    related_request_id=ctx.request_id,
-                )
-                if i < count - 1:  # 最后一次不等待
-                    await anyio.sleep(interval)
+            result = utils.function_call(self.tools.get_json_tools()[name]["api"],arguments)
 
             return [
                 types.TextContent(
                     type="text",
-                    text=f"Sent {count} notifications with {interval}s interval for caller: {caller}",
+                    text=result
                 )
             ]
-
         @self.server.list_tools()
         async def list_tools() -> list[types.Tool]:
             """获取工具列表"""

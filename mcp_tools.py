@@ -13,7 +13,7 @@ class Tools:
         try:
             json_content = json.loads(content)
         except:
-            json_content = []
+            json_content = {}
 
 
         self._json_tools_ = json_content
