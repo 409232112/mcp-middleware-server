@@ -21,7 +21,7 @@ class Tools:
 
 
     def set_tools(self,json_tools):
-        utils.modify_text("APIJsonSchema.json",json.dumps(json_tools,ensure_ascii=False))
+        utils.modify_text(json_file, json.dumps(json_tools, ensure_ascii=False))
         self._tools_ = utils.convert_json_to_tools(json_tools)
         self._json_tools_ = json_tools
 
