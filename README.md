@@ -4,10 +4,10 @@
 
 <a id="中文"></a>
 ## Python版本
-[点击跳转到Python版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-python)
+[Python版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-python)
 
 ## Nodejs版本
-[点击跳转到Nodejs版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-nodejs)
+[Nodejs版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-nodejs)
 
 ## 理念
 
