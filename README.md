@@ -1,13 +1,8 @@
 # mcp-middleware-server
 
-[中文](#中文) | [English](#english)
+### [Python版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-python)
+### [Nodejs版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-nodejs)
 
-<a id="中文"></a>
-## Python版本
-[Python版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-python)
-
-## Nodejs版本
-[Nodejs版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-nodejs)
 
 ## 理念
 
