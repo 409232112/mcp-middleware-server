@@ -1,5 +1,14 @@
 # mcp-middleware-server
 
+[中文](#中文) | [English](#english)
+
+<a id="中文"></a>
+## Python版本
+[点击跳转到Python版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-python)
+
+## Nodejs版本
+[点击跳转到Nodejs版本](https://github.com/409232112/mcp-middleware-server/tree/mcp-middleware-server-nodejs)
+
 ## 理念
 
 还在为不知道让如何自己的系统如何接入MCP？还在头疼系统使用的是JDK8而无法兼容MCP SDK？没有什么是不能通过加一个中间层解决的！
@@ -21,7 +30,7 @@ mcp-middleware-server通过在业务系统与MCP客户端之间加一层中间�
 2、这个也可能是临时解决方案。
 
 ## 架构图
-### 单机板
+### 单机版
 ![single](https://github.com/user-attachments/assets/86c9473e-55bb-4c45-8a7a-7cdeb9cd3cc2)
 
 ### 集群版
