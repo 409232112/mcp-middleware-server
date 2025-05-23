@@ -15,6 +15,10 @@ from starlette.types import Receive, Scope, Send
 from mcp.server.lowlevel import Server
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 
+from starlette.responses import Response
+from mcp.server.sse import SseServerTransport
+
+
 import utils
 from mcp_tools import Tools
 
@@ -39,9 +43,13 @@ class MCPServer:
         self.tools = Tools()
         self.session_manager = self._create_session_manager()
 
+        self.sse = SseServerTransport("/messages/")
+
         # 注册工具和路由
         self._register_tools()
         self.starlette_app = self._create_starlette_app()
+
+
 
     def _configure_logging(self) -> None:
         """配置日志格式和级别"""
@@ -87,6 +95,7 @@ class MCPServer:
             """获取工具列表"""
             return self.tools.get_tools()
 
+
     async def _handle_streamable_http(self, scope: Scope, receive: Receive, send: Send) -> None:
         """处理流式HTTP请求"""
         await self.session_manager.handle_request(scope, receive, send)
@@ -119,12 +128,24 @@ class MCPServer:
             finally:
                 logger.info("Application shutting down...")
 
+
+    async def _handle_sse(self,request):
+        async with self.sse.connect_sse(
+            request.scope, request.receive, request._send
+        ) as streams:
+            await self.server.run(
+                streams[0], streams[1], self.server.create_initialization_options()
+            )
+        return Response()
+
     def _create_starlette_app(self) -> Starlette:
         """创建Starlette应用实例"""
         return Starlette(
             debug=True,
             routes=[
                 # MCP协议路由
+                Route("/sse", endpoint=self._handle_sse, methods=["GET"]),
+                Mount("/messages/", app=self.sse.handle_post_message),
                 Mount("/mcp", app=self._handle_streamable_http),
                 # API路由
                 Mount("/api", routes=[
